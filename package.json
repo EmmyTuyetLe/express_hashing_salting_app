@@ -1,7 +1,7 @@
 {
-  "name": "express_jwt_app",
+  "name": "express_hashing_app",
   "version": "1.0.0",
-  "description": "simple express app with JWT",
+  "description": "express app with hashing",
   "main": "index.js",
   "scripts": {
     "test": "test"
@@ -9,7 +9,9 @@
   "author": "Emmy Le",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1"
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.12.10"
   }
 }
