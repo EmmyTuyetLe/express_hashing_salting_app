@@ -1,30 +1,27 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const PORT = 5000;
+const port = 5000;
 app.use(express.json());
-const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const plainText = "ReskillAmericans123";
+const bcrypt = require('bcrypt');
+let hashedPassword;
 
- const passSchema = new mongoose.Schema({
-   pass: {
-       type: String, 
-       required: true
-   }});
-
-   app.post('/pass',(req,res) => {
-      const pass = {
-          pass: req.body.pass
-  }});
-
-  bcrypt.genSalt(saltRounds)
+bcrypt.genSalt(saltRounds)
  .then(salt => {
-    bcrypt.hash(plainText, saltRounds)
-    .then(hash => {
-       console.log(hash);
-    });
+   bcrypt.hash(plainText, saltRounds)
+   .then(hash => {
+      hashedPassword = hash
+   });
  });
-bcrypt.compare(pass, hash).then(result => {
-    console.log(result);
- });
+
+ console.log(hashedPassword);
+
+app.post('/pass',(req,res) => {
+let pass = req.body.pass;
+let result = bcrypt.compareSync(pass,hashedPassword);
+  return res.json({result})
+});
+
+app.listen(port,()=>console.log(`app listening on port ${port}`));
